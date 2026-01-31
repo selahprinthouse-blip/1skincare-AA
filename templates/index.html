@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>اقتراح أفضل خدمات البشرة</title>
+
+  <style>
+    :root{
+      --bg1:#f7f7ff;
+      --bg2:#ffffff;
+      --primary:#6d28d9;
+      --primary2:#8b5cf6;
+      --accent:#06b6d4;
+      --text:#111827;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --shadow: 0 12px 30px rgba(17,24,39,.10);
+    }
+
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(139,92,246,.20), transparent 55%),
+                  radial-gradient(900px 500px at 80% 30%, rgba(6,182,212,.18), transparent 50%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      color: var(--text);
+    }
+
+    .wrap{
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .header{
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color: #fff;
+      border-radius: 18px;
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .header h1{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: .2px;
+    }
+    .header p{
+      margin: 8px 0 0;
+      font-size: 16px;
+      opacity: .95;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media(min-width: 900px){
+      .grid{ grid-template-columns: 420px 1fr; }
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    label{
+      display:block;
+      margin-top: 12px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    input, select{
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 16px;
+      outline: none;
+      background: #fff;
+    }
+
+    select[multiple]{
+      height: 180px;
+    }
+    select[multiple] option{
+      padding: 8px;
+      line-height: 1.6;
+    }
+
+    .muted{
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .btn{
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border: 0;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--primary2));
+      box-shadow: 0 10px 22px rgba(109,40,217,.20);
+      transition: transform .08s ease-in-out;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+
+    .error{
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      font-size: 15px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(6,182,212,.12);
+      border: 1px solid rgba(6,182,212,.25);
+      color: #0e7490;
+      font-size: 13px;
+      margin-inline-end: 8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+    th, td{
+      border-bottom: 1px solid var(--border);
+      padding: 12px;
+      text-align: right;
+      font-size: 16px;
+    }
+    th{
+      background: #f3f4f6;
+      font-size: 16px;
+    }
+    tr:hover td{
+      background: #fafafa;
+    }
+
+    .topline{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="header">
+      <h1>اقتراح أفضل 5 خدمات للبشرة</h1>
+      <p>املأ معلومات الزبون، وستظهر أفضل 5 خيارات مناسبة داخل الميزانية.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- FORM -->
+      <div class="card">
+        <form method="POST">
+
+          <label>اسم الزبون</label>
+          <input type="text" name="customer_name" placeholder="مثال: أحمد" value="{{ form_data.customer_name }}" required>
+
+          <label>المكان / الفرع</label>
+          <select name="branch" required>
+            {% for b in branch_options %}
+              <option value="{{ b }}" {% if form_data.branch == b %}selected{% endif %}>{{ b }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Gender</label>
+          <select name="gender" required>
+            {% for g in gender_options %}
+              <option value="{{ g }}" {% if form_data.gender == g %}selected{% endif %}>{{ g }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Age</label>
+          <input type="number" name="age" min="0" max="100" value="{{ form_data.age }}" required>
+
+          <label>Skin Type</label>
+          <select name="skin_type" required>
+            <option value="" disabled {% if not form_data.skin_type %}selected{% endif %}>اختر نوع البشرة</option>
+            {% for s in skin_types_all %}
+              <option value="{{ s }}" {% if form_data.skin_type == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Skin Problems (اختيار متعدد)</label>
+          <div class="muted">اضغط Ctrl (أو Command على ماك) لاختيار أكثر من مشكلة</div>
+          <select name="skin_problems" multiple>
+            {% for p in problems_all %}
+              <option value="{{ p }}" {% if p in form_data.skin_problems %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Budget (PHP)</label>
+          <input type="number" name="budget" min="0" step="50" value="{{ form_data.budget }}" required>
+
+          <button class="btn" type="submit">اعرض أفضل 5 خدمات</button>
+
+          {% if error %}
+            <div class="error">{{ error }}</div>
+          {% endif %}
+        </form>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="card">
+        <h2 style="margin:0;font-size:22px;">النتائج</h2>
+
+        {% if results and results|length > 0 %}
+          <div class="topline">
+            <span class="badge">اسم الزبون: {{ form_data.customer_name }}</span>
+            <span class="badge">المكان: {{ form_data.branch }}</span>
+            <span class="badge">عدد الاقتراحات: {{ results|length }}</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>الخدمة المقترحة</th>
+                <th>السعر (PHP)</th>
+                <th>ملاحظات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in results %}
+              <tr>
+                <td><b>{{ r["Service Name"] }}</b></td>
+                <td>{{ r["Price"] }}</td>
+                <td>{{ r["Notes"] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        {% else %}
+          <div class="muted" style="margin-top:10px;">
+            لا توجد نتائج بعد. املأ البيانات واضغط “اعرض أفضل 5 خدمات”.
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
