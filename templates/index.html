@@ -28,39 +28,26 @@
       color: var(--text);
     }
 
-    .wrap{
-      max-width: 1000px;
-      margin: 24px auto;
-      padding: 16px;
-    }
+    .wrap{ max-width: 1050px; margin: 24px auto; padding: 16px; }
 
     .header{
       background: linear-gradient(135deg, var(--primary), var(--primary2));
       color: #fff;
       border-radius: 18px;
-      padding: 18px 18px;
+      padding: 18px;
       box-shadow: var(--shadow);
     }
-
-    .header h1{
-      margin:0;
-      font-size: 28px;
-      letter-spacing: .2px;
-    }
-    .header p{
-      margin: 8px 0 0;
-      font-size: 16px;
-      opacity: .95;
-    }
+    .header h1{ margin:0; font-size: 30px; }
+    .header p{ margin: 8px 0 0; font-size: 16px; opacity: .95; }
 
     .grid{
-      display: grid;
+      display:grid;
       grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 16px;
+      gap:16px;
+      margin-top:16px;
     }
     @media(min-width: 900px){
-      .grid{ grid-template-columns: 420px 1fr; }
+      .grid{ grid-template-columns: 430px 1fr; }
     }
 
     .card{
@@ -71,48 +58,33 @@
       box-shadow: var(--shadow);
     }
 
-    label{
-      display:block;
-      margin-top: 12px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
+    label{ display:block; margin-top: 12px; font-weight:bold; font-size:16px; }
     input, select{
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      font-size: 16px;
-      outline: none;
-      background: #fff;
+      width:100%;
+      padding:12px;
+      margin-top:8px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:16px;
+      outline:none;
+      background:#fff;
     }
 
-    select[multiple]{
-      height: 180px;
-    }
-    select[multiple] option{
-      padding: 8px;
-      line-height: 1.6;
-    }
+    select[multiple]{ height: 180px; }
+    select[multiple] option{ padding: 8px; line-height: 1.6; }
 
-    .muted{
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 6px;
-    }
+    .muted{ color: var(--muted); font-size:14px; margin-top:6px; }
 
     .btn{
-      width: 100%;
-      margin-top: 16px;
-      padding: 12px 14px;
-      border: 0;
-      border-radius: 14px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #fff;
+      width:100%;
+      margin-top:16px;
+      padding:12px 14px;
+      border:0;
+      border-radius:14px;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      color:#fff;
       background: linear-gradient(135deg, var(--accent), var(--primary2));
       box-shadow: 0 10px 22px rgba(109,40,217,.20);
       transition: transform .08s ease-in-out;
@@ -138,36 +110,25 @@
       color: #0e7490;
       font-size: 13px;
       margin-inline-end: 8px;
+      margin-top: 8px;
     }
 
     table{
       width:100%;
       border-collapse: collapse;
       margin-top: 12px;
-      overflow: hidden;
-      border-radius: 14px;
+      overflow:hidden;
+      border-radius:14px;
     }
     th, td{
-      border-bottom: 1px solid var(--border);
+      border-bottom:1px solid var(--border);
       padding: 12px;
-      text-align: right;
-      font-size: 16px;
+      text-align:right;
+      font-size:16px;
+      vertical-align: top;
     }
-    th{
-      background: #f3f4f6;
-      font-size: 16px;
-    }
-    tr:hover td{
-      background: #fafafa;
-    }
-
-    .topline{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 8px;
-    }
+    th{ background:#f3f4f6; }
+    tr:hover td{ background:#fafafa; }
   </style>
 </head>
 
@@ -176,7 +137,7 @@
 
     <div class="header">
       <h1>اقتراح أفضل 5 خدمات للبشرة</h1>
-      <p>املأ معلومات الزبون، وستظهر أفضل 5 خيارات مناسبة داخل الميزانية.</p>
+      <p>اختر المحافظة ثم المدينة، وأدخل بيانات الزبون، وستظهر أفضل 5 خيارات داخل الميزانية.</p>
     </div>
 
     <div class="grid">
@@ -186,13 +147,18 @@
         <form method="POST">
 
           <label>اسم الزبون</label>
-          <input type="text" name="customer_name" placeholder="مثال: أحمد" value="{{ form_data.customer_name }}" required>
+          <input type="text" name="customer_name" placeholder="مثال: Ahmed" value="{{ form_data.customer_name }}" required>
 
-          <label>المكان / الفرع</label>
-          <select name="branch" required>
-            {% for b in branch_options %}
-              <option value="{{ b }}" {% if form_data.branch == b %}selected{% endif %}>{{ b }}</option>
+          <label>المحافظة (Province)</label>
+          <select name="province" id="provinceSelect" required>
+            {% for p in province_options %}
+              <option value="{{ p }}" {% if form_data.province == p %}selected{% endif %}>{{ p }}</option>
             {% endfor %}
+          </select>
+
+          <label>المدينة (City)</label>
+          <select name="city" id="citySelect" required>
+            <!-- سيتم تعبئتها بالجافاسكربت -->
           </select>
 
           <label>Gender</label>
@@ -237,9 +203,10 @@
         <h2 style="margin:0;font-size:22px;">النتائج</h2>
 
         {% if results and results|length > 0 %}
-          <div class="topline">
+          <div>
             <span class="badge">اسم الزبون: {{ form_data.customer_name }}</span>
-            <span class="badge">المكان: {{ form_data.branch }}</span>
+            <span class="badge">المحافظة: {{ form_data.province }}</span>
+            <span class="badge">المدينة: {{ form_data.city }}</span>
             <span class="badge">عدد الاقتراحات: {{ results|length }}</span>
           </div>
 
@@ -271,5 +238,63 @@
 
     </div>
   </div>
+
+  <script>
+    // Cities mapping from server
+    const citiesByProvince = {{ cities_by_province | tojson }};
+    const provinceSelect = document.getElementById("provinceSelect");
+    const citySelect = document.getElementById("citySelect");
+
+    // Selected city from server (after POST)
+    const selectedCityFromServer = {{ (form_data.city or "") | tojson }};
+
+    function fillCities() {
+      const province = provinceSelect.value;
+      const cities = citiesByProvince[province] || [];
+
+      // Clear
+      citySelect.innerHTML = "";
+
+      // If no cities defined for that province:
+      if (cities.length === 0) {
+        const opt = document.createElement("option");
+        opt.value = "Other";
+        opt.textContent = "Other / Not listed";
+        citySelect.appendChild(opt);
+        return;
+      }
+
+      // Add placeholder
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "اختر المدينة";
+      placeholder.disabled = true;
+      citySelect.appendChild(placeholder);
+
+      // Add cities
+      cities.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        citySelect.appendChild(opt);
+      });
+
+      // Set selected
+      if (selectedCityFromServer && cities.includes(selectedCityFromServer)) {
+        citySelect.value = selectedCityFromServer;
+      } else {
+        citySelect.value = "";
+      }
+    }
+
+    provinceSelect.addEventListener("change", () => {
+      // when province changes, refill cities and reset selection
+      fillCities();
+      citySelect.value = "";
+    });
+
+    // init on page load
+    fillCities();
+  </script>
 </body>
 </html>
